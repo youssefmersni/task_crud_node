@@ -12,6 +12,11 @@ const taskRoutes = require('./routes/taskRoutes');
 dotenv.config();
 
 const app = express();
+app.get('/', (req, res) => {
+  res.redirect('/tasks');
+});
+
+
 
 // Middleware to parse request body
 app.use(express.urlencoded({ extended: true }));
