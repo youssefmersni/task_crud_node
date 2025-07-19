@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>My Tasks</title>
+    <link rel="stylesheet" href="/styles.css">
+</head>
+
+<body>
+  <h1>Task List</h1>
+
+  <!-- 🔔 Flash Messages (only once) -->
+  <% if (success_msg && success_msg.length > 0) { %>
+    <div class="flash-success"><%= success_msg %></div>
+  <% } %>
+  <% if (error_msg && error_msg.length > 0) { %>
+    <div class="flash-error"><%= error_msg %></div>
+  <% } %>
+
+  <!-- 🔍 Search Form -->
+  <form method="GET" action="/tasks">
+    <input type="text" name="q" placeholder="Search tasks...">
+    <button type="submit">Search</button>
+  </form>
+
+  <ul>
+    <% tasks.forEach(task => { %>
+      <li>
+        <%= task.title %>: <%= task.description %>
+
+        <!-- 🗑️ Delete -->
+        <form action="/tasks/<%= task._id %>/delete" method="POST" style="display:inline;">
+          <button type="submit"> Delete</button>
+        </form>
+
+        <!-- ✏️ Edit -->
+        <form action="/tasks/<%= task._id %>/edit" method="GET" style="display:inline;">
+          <button type="submit"> Edit</button>
+        </form>
+
+        <!-- ✅/❌ Done Toggle -->
+        <form action="/tasks/<%= task._id %>/toggle" method="POST" style="display:inline;">
+          <button type="submit"><%= task.done ? ":*( Undo" : ":) Done" %></button>
+        </form>
+      </li>
+    <% }) %>
+  </ul>
+
+  <hr>
+
+  <!-- ➕ Add New Task -->
+  <h2>Add a New Task</h2>
+  <form method="POST" action="/tasks">
+    <label>Title:</label>
+    <input type="text" name="title" placeholder="New Task" required>
+    
+    <label>Description:</label>
+    <textarea name="description" required></textarea><br><br>
+    
+    <button type="submit">Add Task</button>
+  </form>
+</body>
+</html>

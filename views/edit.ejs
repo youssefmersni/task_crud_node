@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Edit Task</title>
+</head>
+<body>
+  <h1>Edit Task</h1>
+
+  <form method="POST" action="/tasks/<%= task._id %>/edit">
+    <label>Title:</label>
+    
+    <input type="text" name="title" value="<%= task.title %>" required>
+
+    <label>Description:</label>
+    <textarea name="description" required><%= task.description %></textarea>
+
+    <button type="submit">Update</button>
+  </form>
+
+  <a href="/tasks">← Back to Tasks</a>
+</body>
+</html>
